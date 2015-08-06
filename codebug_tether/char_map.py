@@ -113,7 +113,7 @@ class CharSprite(object):
         self.char = char
         if char not in char_map:
             char = 'unknown'
-        self.led_state = [[(char_map[char][row] >> shift) & 0x1
+        self.pixel_state = [[(char_map[char][row] >> shift) & 0x1
                            for shift in reversed(range(4))]
                           for row in range(5)]
 
@@ -131,7 +131,7 @@ class StringSprite(object):
             self.width = 4
             self.height = 6 * len(string)
 
-        self.led_state = [[0 for i in range(self.width)]
+        self.pixel_state = [[0 for i in range(self.width)]
                           for j in range(self.height)]
 
         for char_index, c in enumerate(self.string):
@@ -140,17 +140,17 @@ class StringSprite(object):
                 for x in range(char_sprite.width):
 
                     if "r" in direction.lower():
-                        self.led_state[y][x+(char_index*5)] = \
-                            char_sprite.led_state[y][x]
+                        self.pixel_state[y][x+(char_index*5)] = \
+                            char_sprite.pixel_state[y][x]
 
                     if "l" in direction.lower():
-                        self.led_state[y][x+(self.width-(char_index+1)*5)] = \
-                            char_sprite.led_state[y][x]
+                        self.pixel_state[y][x+(self.width-(char_index+1)*5)] = \
+                            char_sprite.pixel_state[y][x]
 
                     if "d" in direction.lower():
-                        self.led_state[y+(char_index*6)][x] = \
-                            char_sprite.led_state[y][x]
+                        self.pixel_state[y+(char_index*6)][x] = \
+                            char_sprite.pixel_state[y][x]
 
                     if "u" in direction.lower():
-                        self.led_state[y+(self.height-(char_index+1)*6)][x] = \
-                            char_sprite.led_state[y][x]
+                        self.pixel_state[y+(self.height-(char_index+1)*6)][x] = \
+                            char_sprite.pixel_state[y][x]
